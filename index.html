@@ -127,7 +127,7 @@
             <p class="font-code text-xs text-slate-300 leading-relaxed mb-6">
                 Untuk pengalaman permainan terbaik, sila main secara <span class="text-red-500 font-bold">LANDSCAPE</span> (Melintang) pada telefon anda.
             </p>
-            <button onclick="startApp()" class="w-full bg-red-600 hover:bg-red-700 active:scale-95 text-white font-code text-xs font-bold py-3 rounded tracking-widest uppercase transition-all shadow-lg shadow-red-600/40">
+            <button onclick="playClickSFX(); startApp();" class="w-full bg-red-600 hover:bg-red-700 active:scale-95 text-white font-code text-xs font-bold py-3 rounded tracking-widest uppercase transition-all shadow-lg shadow-red-600/40">
                 <i class="fa-solid fa-play mr-2"></i> MULA OPERASI
             </button>
         </div>
@@ -146,7 +146,7 @@
                     </span>
                 </div>
                 <!-- BUTTON SETTINGS -->
-                <button onclick="toggleSettingsModal(true)" class="text-slate-400 hover:text-red-500 font-code text-xs flex items-center gap-1 transition-all">
+                <button onclick="playClickSFX(); toggleSettingsModal(true);" class="text-slate-400 hover:text-red-500 font-code text-xs flex items-center gap-1 transition-all">
                     <i class="fa-solid fa-gear text-sm"></i>
                     <span class="hidden sm:inline">SETTING</span>
                 </button>
@@ -181,7 +181,7 @@
             <!-- MISSION SELECTION (LEVEL LINKS) -->
             <div class="space-y-3 w-full">
                 <!-- LEVEL 1 -->
-                <a href="https://smassrgb.github.io/Game-pemakanan-lvl-1/" class="btn-hitman group rounded">
+                <a href="https://smassrgb.github.io/Game-pemakanan-lvl-1/" onclick="playClickSFX()" class="btn-hitman group rounded">
                     <div class="flex flex-col">
                         <span class="font-code text-[9px] text-slate-400 uppercase tracking-widest">MISSION #01 • BIKINI BOTTOM</span>
                         <span class="text-xs sm:text-sm font-extrabold tracking-wide text-white group-hover:text-red-100">
@@ -192,7 +192,7 @@
                 </a>
 
                 <!-- LEVEL 2 -->
-                <a href="https://smassrgb.github.io/Game-pemakanan-lvl-2/" class="btn-hitman group rounded">
+                <a href="https://smassrgb.github.io/Game-pemakanan-lvl-2/" onclick="playClickSFX()" class="btn-hitman group rounded">
                     <div class="flex flex-col">
                         <span class="font-code text-[9px] text-slate-400 uppercase tracking-widest">MISSION #02 • CAT HAVEN</span>
                         <span class="text-xs sm:text-sm font-extrabold tracking-wide text-white group-hover:text-red-100">
@@ -203,7 +203,7 @@
                 </a>
 
                 <!-- LEVEL 3 -->
-                <a href="https://smassrgb.github.io/Game-pemakanan-lvl-3/" class="btn-hitman group rounded">
+                <a href="https://smassrgb.github.io/Game-pemakanan-lvl-3/" onclick="playClickSFX()" class="btn-hitman group rounded">
                     <div class="flex flex-col">
                         <span class="font-code text-[9px] text-slate-400 uppercase tracking-widest">MISSION #03 • NUTRITION LAB</span>
                         <span class="text-xs sm:text-sm font-extrabold tracking-wide text-white group-hover:text-red-100">
@@ -232,7 +232,7 @@
                 <h3 class="text-sm font-bold text-white font-code uppercase tracking-wider flex items-center gap-2">
                     <i class="fa-solid fa-sliders text-red-500"></i> System Configuration
                 </h3>
-                <button onclick="toggleSettingsModal(false)" class="text-slate-400 hover:text-white font-bold text-lg">✕</button>
+                <button onclick="playClickSFX(); toggleSettingsModal(false);" class="text-slate-400 hover:text-white font-bold text-lg">✕</button>
             </div>
 
             <div class="space-y-4 font-code text-xs">
@@ -262,14 +262,14 @@
                 <div>
                     <span class="text-slate-300 block mb-1">RESOLUTION / QUALITY</span>
                     <div class="grid grid-cols-3 gap-2 text-[10px]">
-                        <button id="btn-reso-low" onclick="updateResolution('low')" class="py-2 rounded border border-slate-700 bg-slate-900 text-slate-300 hover:border-red-500">LOW</button>
-                        <button id="btn-reso-med" onclick="updateResolution('med')" class="py-2 rounded border border-red-600 bg-red-950/80 text-white font-bold">MEDIUM</button>
-                        <button id="btn-reso-high" onclick="updateResolution('high')" class="py-2 rounded border border-slate-700 bg-slate-900 text-slate-300 hover:border-red-500">HIGH</button>
+                        <button id="btn-reso-low" onclick="playClickSFX(); updateResolution('low');" class="py-2 rounded border border-slate-700 bg-slate-900 text-slate-300 hover:border-red-500">LOW</button>
+                        <button id="btn-reso-med" onclick="playClickSFX(); updateResolution('med');" class="py-2 rounded border border-red-600 bg-red-950/80 text-white font-bold">MEDIUM</button>
+                        <button id="btn-reso-high" onclick="playClickSFX(); updateResolution('high');" class="py-2 rounded border border-slate-700 bg-slate-900 text-slate-300 hover:border-red-500">HIGH</button>
                     </div>
                 </div>
             </div>
 
-            <button onclick="toggleSettingsModal(false)" class="w-full mt-6 bg-slate-800 hover:bg-slate-700 text-white font-code text-xs py-2.5 rounded border border-slate-600 uppercase tracking-widest">
+            <button onclick="playClickSFX(); toggleSettingsModal(false);" class="w-full mt-6 bg-slate-800 hover:bg-slate-700 text-white font-code text-xs py-2.5 rounded border border-slate-600 uppercase tracking-widest">
                 Save & Close
             </button>
         </div>
@@ -282,6 +282,37 @@
 
     <script>
         const bgm = document.getElementById('bgm-hitman');
+        let audioCtx = null;
+
+        // Sound Effect Taktikal / Click (Guna Web Audio API)
+        function playClickSFX() {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.05);
+                
+                gain.gain.setValueAtTime(0.3 * bgm.volume, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.05);
+            } catch (e) {
+                console.log("Audio SFX Error:", e);
+            }
+        }
 
         // Load Settings & Save File
         window.addEventListener('DOMContentLoaded', () => {
