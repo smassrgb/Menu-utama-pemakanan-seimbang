@@ -1,5 +1,335 @@
-<!-- BUTANG KEMBALI KE MENU UTAMA (ICA HOME) -->
-<a href="https://smassrgb.github.io/Game-pemakanan-seimbang/" 
-   style="position: fixed; top: 12px; left: 12px; z-index: 999; background: rgba(18, 20, 26, 0.9); border: 1px solid rgba(220, 38, 38, 0.6); color: #ffffff; padding: 8px 14px; border-radius: 6px; font-family: monospace; font-size: 12px; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 6px; backdrop-filter: blur(8px); box-shadow: 0 4px 12px rgba(0,0,0,0.5);">
-    <span style="color: #dc2626;">◄</span> ICA MENU
-</a>
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>ICA BRIEFING - Healthy Food Adventure</title>
+
+    <!-- Tailwind CSS, Font Awesome & Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@400;600;800&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-hitman: #08080a;
+            --crimson: #dc2626;
+            --crimson-glow: rgba(220, 38, 38, 0.6);
+            --ica-border: rgba(255, 255, 255, 0.15);
+        }
+        
+        body, html {
+            width: 100vw;
+            height: 100dvh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: var(--bg-hitman);
+            color: #f1f5f9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            touch-action: manipulation;
+        }
+
+        .font-hitman-title { font-family: 'Cinzel', serif; letter-spacing: 0.15em; }
+        .font-code { font-family: 'JetBrains Mono', monospace; }
+
+        .hitman-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            background: 
+                radial-gradient(circle at 50% 30%, rgba(220, 38, 38, 0.15) 0%, transparent 60%),
+                radial-gradient(circle at 10% 90%, rgba(15, 23, 42, 0.8) 0%, transparent 50%),
+                linear-gradient(to bottom, rgba(8, 8, 10, 0.85), rgba(8, 8, 10, 0.98)),
+                url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+        }
+
+        .tactical-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2;
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            pointer-events: none;
+        }
+
+        .ica-panel {
+            background: rgba(18, 20, 26, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--ica-border);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 15px rgba(220, 38, 38, 0.1);
+            position: relative;
+        }
+
+        .ica-panel::before {
+            content: ''; position: absolute; top: -1px; left: -1px;
+            width: 15px; height: 15px;
+            border-top: 3px solid var(--crimson); border-left: 3px solid var(--crimson);
+        }
+
+        .ica-panel::after {
+            content: ''; position: absolute; bottom: -1px; right: -1px;
+            width: 15px; height: 15px;
+            border-bottom: 3px solid var(--crimson); border-right: 3px solid var(--crimson);
+        }
+
+        .btn-hitman {
+            position: relative;
+            background: linear-gradient(135deg, rgba(26, 29, 38, 0.95), rgba(14, 16, 22, 0.98));
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #e2e8f0;
+            padding: 12px 18px;
+            border-left: 4px solid #475569;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-hitman:hover {
+            transform: translateX(6px);
+            border-left-color: var(--crimson);
+            background: linear-gradient(90deg, rgba(220, 38, 38, 0.25), rgba(18, 20, 26, 0.95));
+            color: #ffffff;
+            box-shadow: -5px 0 20px var(--crimson-glow);
+        }
+
+        @keyframes pulseLaser {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.08); }
+        }
+        .laser-pulse { animation: pulseLaser 2.5s infinite; }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 4px; }
+    </style>
+</head>
+<body class="flex flex-col justify-center items-center p-3 sm:p-6 relative">
+
+    <div class="hitman-bg"></div>
+    <div class="tactical-grid"></div>
+
+    <!-- 1. POP-UP LANDSCAPE & EXPERIENCE OVERLAY -->
+    <div id="landscape-modal" class="fixed inset-0 z-50 bg-black/95 flex flex-col justify-center items-center text-center p-6 backdrop-blur-md">
+        <div class="max-w-md w-full ica-panel p-8 rounded-xl border border-red-600/40">
+            <div class="w-16 h-16 rounded-full bg-red-950/60 border border-red-600/60 text-red-500 flex items-center justify-center mx-auto mb-4 laser-pulse">
+                <i class="fa-solid fa-mobile-screen-button text-3xl rotate-90"></i>
+            </div>
+            <h2 class="text-xl font-black text-white font-hitman-title uppercase tracking-wider mb-2">
+                Optimal Experience Notice
+            </h2>
+            <p class="font-code text-xs text-slate-300 leading-relaxed mb-6">
+                Untuk pengalaman permainan terbaik, sila main secara <span class="text-red-500 font-bold">LANDSCAPE</span> (Melintang) pada telefon anda.
+            </p>
+            <button onclick="startApp()" class="w-full bg-red-600 hover:bg-red-700 active:scale-95 text-white font-code text-xs font-bold py-3 rounded tracking-widest uppercase transition-all shadow-lg shadow-red-600/40">
+                <i class="fa-solid fa-play mr-2"></i> MULA OPERASI
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. MAIN MENU CONTAINER -->
+    <div class="z-10 text-left max-w-lg ica-panel p-5 sm:p-8 rounded-lg w-full max-h-[92vh] flex flex-col justify-between overflow-y-auto custom-scrollbar">
+        
+        <div>
+            <!-- HEADER BAR -->
+            <div class="flex justify-between items-center border-b border-white/10 pb-3 mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-600 animate-ping"></span>
+                    <span class="font-code text-[11px] font-bold text-red-500 tracking-widest uppercase">
+                        ICA BRIEFING // LEVEL SELECT
+                    </span>
+                </div>
+                <!-- BUTTON SETTINGS -->
+                <button onclick="toggleSettingsModal(true)" class="text-slate-400 hover:text-red-500 font-code text-xs flex items-center gap-1 transition-all">
+                    <i class="fa-solid fa-gear text-sm"></i>
+                    <span class="hidden sm:inline">SETTING</span>
+                </button>
+            </div>
+
+            <!-- PROFIL PELAJAR / SAVE FILE -->
+            <div class="bg-slate-900/90 border border-slate-800 p-3 rounded mb-5 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded bg-red-950/80 border border-red-600/50 flex items-center justify-center text-red-500 font-code font-bold">
+                        47
+                    </div>
+                    <div>
+                        <div class="font-code text-[9px] text-slate-400 uppercase tracking-widest">AGENT IDENTIFICATION</div>
+                        <input id="input-student-name" type="text" placeholder="Masukkan Nama Pelajar..." 
+                               onchange="saveStudentName(this.value)"
+                               class="bg-transparent text-xs font-bold text-white focus:outline-none focus:border-b border-red-500 w-full tracking-wide">
+                    </div>
+                </div>
+                <span class="font-code text-[9px] text-emerald-400 bg-emerald-950/50 border border-emerald-500/30 px-2 py-0.5 rounded">SAVED</span>
+            </div>
+
+            <!-- TITLE & LOGO AREA -->
+            <div class="text-center mb-6">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-red-950/40 border border-red-600/40 text-red-500 mb-2 laser-pulse">
+                    <i class="fa-solid fa-crosshairs text-xl"></i>
+                </div>
+                <h1 class="text-xl sm:text-3xl font-black text-white font-hitman-title uppercase tracking-widest">
+                    HEALTHY FOOD <span class="text-red-600">ADVENTURE</span>
+                </h1>
+            </div>
+
+            <!-- MISSION SELECTION (LEVEL LINKS) -->
+            <div class="space-y-3 w-full">
+                <!-- LEVEL 1 -->
+                <a href="https://smassrgb.github.io/Game-pemakanan-lvl-1/" class="btn-hitman group rounded">
+                    <div class="flex flex-col">
+                        <span class="font-code text-[9px] text-slate-400 uppercase tracking-widest">MISSION #01 • BIKINI BOTTOM</span>
+                        <span class="text-xs sm:text-sm font-extrabold tracking-wide text-white group-hover:text-red-100">
+                            Level 1 - Sorting 3D
+                        </span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-slate-500 text-xs transition-transform group-hover:translate-x-1 group-hover:text-red-500"></i>
+                </a>
+
+                <!-- LEVEL 2 -->
+                <a href="https://smassrgb.github.io/Game-pemakanan-lvl-2/" class="btn-hitman group rounded">
+                    <div class="flex flex-col">
+                        <span class="font-code text-[9px] text-slate-400 uppercase tracking-widest">MISSION #02 • CAT HAVEN</span>
+                        <span class="text-xs sm:text-sm font-extrabold tracking-wide text-white group-hover:text-red-100">
+                            Level 2 - Healthy Cat Catch
+                        </span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-slate-500 text-xs transition-transform group-hover:translate-x-1 group-hover:text-red-500"></i>
+                </a>
+
+                <!-- LEVEL 3 -->
+                <a href="https://smassrgb.github.io/Game-pemakanan-lvl-3/" class="btn-hitman group rounded">
+                    <div class="flex flex-col">
+                        <span class="font-code text-[9px] text-slate-400 uppercase tracking-widest">MISSION #03 • NUTRITION LAB</span>
+                        <span class="text-xs sm:text-sm font-extrabold tracking-wide text-white group-hover:text-red-100">
+                            Level 3 - Balanced Plate Builder
+                        </span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-slate-500 text-xs transition-transform group-hover:translate-x-1 group-hover:text-red-500"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="border-t border-white/10 mt-6 pt-3 flex justify-between items-center text-[9px] font-code text-slate-500">
+            <div>&copy; 2026 ICA SYSTEM</div>
+            <div class="flex items-center gap-1.5 text-red-500">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>SYSTEM READY</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. MODAL SETTINGS (TETAPAN) -->
+    <div id="modal-settings" class="fixed inset-0 z-40 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="ica-panel w-full max-w-sm rounded-lg p-6 border border-slate-700">
+            <div class="flex justify-between items-center border-b border-white/10 pb-3 mb-4">
+                <h3 class="text-sm font-bold text-white font-code uppercase tracking-wider flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-red-500"></i> System Configuration
+                </h3>
+                <button onclick="toggleSettingsModal(false)" class="text-slate-400 hover:text-white font-bold text-lg">✕</button>
+            </div>
+
+            <div class="space-y-4 font-code text-xs">
+                <!-- AUDIO VOLUME -->
+                <div>
+                    <div class="flex justify-between text-slate-300 mb-1">
+                        <span>AUDIO VOLUME</span>
+                        <span id="label-volume" class="text-red-500 font-bold">80%</span>
+                    </div>
+                    <input id="slider-volume" type="range" min="0" max="1" step="0.05" value="0.8"
+                           oninput="updateVolume(this.value)"
+                           class="w-full accent-red-600 cursor-pointer">
+                </div>
+
+                <!-- SENSITIVITY -->
+                <div>
+                    <div class="flex justify-between text-slate-300 mb-1">
+                        <span>SENSITIVITY</span>
+                        <span id="label-sensitivity" class="text-red-500 font-bold">1.0x</span>
+                    </div>
+                    <input id="slider-sensitivity" type="range" min="0.5" max="2.0" step="0.1" value="1.0"
+                           oninput="updateSensitivity(this.value)"
+                           class="w-full accent-red-600 cursor-pointer">
+                </div>
+
+                <!-- GRAPHIC RESOLUTION -->
+                <div>
+                    <span class="text-slate-300 block mb-1">RESOLUTION / QUALITY</span>
+                    <div class="grid grid-cols-3 gap-2 text-[10px]">
+                        <button id="btn-reso-low" onclick="updateResolution('low')" class="py-2 rounded border border-slate-700 bg-slate-900 text-slate-300 hover:border-red-500">LOW</button>
+                        <button id="btn-reso-med" onclick="updateResolution('med')" class="py-2 rounded border border-red-600 bg-red-950/80 text-white font-bold">MEDIUM</button>
+                        <button id="btn-reso-high" onclick="updateResolution('high')" class="py-2 rounded border border-slate-700 bg-slate-900 text-slate-300 hover:border-red-500">HIGH</button>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="toggleSettingsModal(false)" class="w-full mt-6 bg-slate-800 hover:bg-slate-700 text-white font-code text-xs py-2.5 rounded border border-slate-600 uppercase tracking-widest">
+                Save & Close
+            </button>
+        </div>
+    </div>
+
+    <!-- AUDIO PLAYER -->
+    <audio id="bgm-hitman" loop preload="auto">
+        <source src="https://raw.githubusercontent.com/smassrgb/Game-Pemakanan-Seimbangg/main/HITMAN%E2%84%A2%20-%20Main%20Theme%20%5B3nERcHvQFrg%5D.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const bgm = document.getElementById('bgm-hitman');
+
+        // Load Settings & Save File
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedName = localStorage.getItem('ica_student_name') || '';
+            document.getElementById('input-student-name').value = savedName;
+
+            const savedVol = localStorage.getItem('ica_volume') || 0.8;
+            document.getElementById('slider-volume').value = savedVol;
+            updateVolume(savedVol);
+        });
+
+        function startApp() {
+            document.getElementById('landscape-modal').classList.add('hidden');
+            bgm.play().catch(e => console.log("Audio autoplay blocked:", e));
+        }
+
+        function saveStudentName(name) {
+            localStorage.setItem('ica_student_name', name);
+        }
+
+        function toggleSettingsModal(show) {
+            const modal = document.getElementById('modal-settings');
+            if (show) modal.classList.remove('hidden');
+            else modal.classList.add('hidden');
+        }
+
+        function updateVolume(val) {
+            bgm.volume = parseFloat(val);
+            document.getElementById('label-volume').innerText = `${Math.round(val * 100)}%`;
+            localStorage.setItem('ica_volume', val);
+        }
+
+        function updateSensitivity(val) {
+            document.getElementById('label-sensitivity').innerText = `${parseFloat(val).toFixed(1)}x`;
+            localStorage.setItem('ica_sensitivity', val);
+        }
+
+        function updateResolution(res) {
+            ['low', 'med', 'high'].forEach(r => {
+                const btn = document.getElementById(`btn-reso-${r}`);
+                if (r === res) {
+                    btn.className = "py-2 rounded border border-red-600 bg-red-950/80 text-white font-bold";
+                } else {
+                    btn.className = "py-2 rounded border border-slate-700 bg-slate-900 text-slate-300 hover:border-red-500";
+                }
+            });
+            localStorage.setItem('ica_resolution', res);
+        }
+    </script>
+</body>
+</html>
