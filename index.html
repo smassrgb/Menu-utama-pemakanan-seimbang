@@ -89,7 +89,6 @@
             align-items: center;
             justify-content: space-between;
             cursor: pointer;
-            text-decoration: none;
         }
 
         .btn-hitman:hover {
@@ -115,7 +114,7 @@
     <div class="hitman-bg"></div>
     <div class="tactical-grid"></div>
 
-    <!-- 1. POP-UP LANDSCAPE & EXPERIENCE OVERLAY -->
+    <!-- POP-UP LANDSCAPE NOTICE -->
     <div id="landscape-modal" class="fixed inset-0 z-50 bg-black/95 flex flex-col justify-center items-center text-center p-6 backdrop-blur-md">
         <div class="max-w-md w-full ica-panel p-8 rounded-xl border border-red-600/40">
             <div class="w-16 h-16 rounded-full bg-red-950/60 border border-red-600/60 text-red-500 flex items-center justify-center mx-auto mb-4 laser-pulse">
@@ -133,9 +132,8 @@
         </div>
     </div>
 
-    <!-- 2. MAIN MENU CONTAINER -->
-    <div class="z-10 text-left max-w-lg ica-panel p-5 sm:p-8 rounded-lg w-full max-h-[92vh] flex flex-col justify-between overflow-y-auto custom-scrollbar">
-        
+    <!-- ==================== 1. SKRIN MENU UTAMA ==================== -->
+    <div id="screen-main-menu" class="z-10 text-left max-w-lg ica-panel p-5 sm:p-8 rounded-lg w-full max-h-[92vh] flex flex-col justify-between overflow-y-auto custom-scrollbar">
         <div>
             <!-- HEADER BAR -->
             <div class="flex justify-between items-center border-b border-white/10 pb-3 mb-4">
@@ -145,14 +143,13 @@
                         ICA BRIEFING // LEVEL SELECT
                     </span>
                 </div>
-                <!-- BUTTON SETTINGS -->
                 <button onclick="playClickSFX(); toggleSettingsModal(true);" class="text-slate-400 hover:text-red-500 font-code text-xs flex items-center gap-1 transition-all">
                     <i class="fa-solid fa-gear text-sm"></i>
                     <span class="hidden sm:inline">SETTING</span>
                 </button>
             </div>
 
-            <!-- PROFIL PELAJAR / SAVE FILE -->
+            <!-- PROFIL PELAJAR -->
             <div class="bg-slate-900/90 border border-slate-800 p-3 rounded mb-5 flex items-center justify-between gap-3">
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded bg-red-950/80 border border-red-600/50 flex items-center justify-center text-red-500 font-code font-bold">
@@ -168,7 +165,7 @@
                 <span class="font-code text-[9px] text-emerald-400 bg-emerald-950/50 border border-emerald-500/30 px-2 py-0.5 rounded">SAVED</span>
             </div>
 
-            <!-- TITLE & LOGO AREA -->
+            <!-- TAJUK -->
             <div class="text-center mb-6">
                 <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-red-950/40 border border-red-600/40 text-red-500 mb-2 laser-pulse">
                     <i class="fa-solid fa-crosshairs text-xl"></i>
@@ -178,44 +175,40 @@
                 </h1>
             </div>
 
-            <!-- MISSION SELECTION (LEVEL LINKS) -->
+            <!-- PILIHAN LEVEL -->
             <div class="space-y-3 w-full">
-                <!-- LEVEL 1 -->
-                <a href="https://smassrgb.github.io/Game-pemakanan-lvl-1/" onclick="playClickSFX()" class="btn-hitman group rounded">
-                    <div class="flex flex-col">
+                <button onclick="playClickSFX(); switchScreen('screen-lvl1');" class="btn-hitman group rounded w-full">
+                    <div class="flex flex-col text-left">
                         <span class="font-code text-[9px] text-slate-400 uppercase tracking-widest">MISSION #01 • BIKINI BOTTOM</span>
                         <span class="text-xs sm:text-sm font-extrabold tracking-wide text-white group-hover:text-red-100">
                             Level 1 - Sorting 3D
                         </span>
                     </div>
                     <i class="fa-solid fa-chevron-right text-slate-500 text-xs transition-transform group-hover:translate-x-1 group-hover:text-red-500"></i>
-                </a>
+                </button>
 
-                <!-- LEVEL 2 -->
-                <a href="https://smassrgb.github.io/Game-pemakanan-lvl-2/" onclick="playClickSFX()" class="btn-hitman group rounded">
-                    <div class="flex flex-col">
+                <button onclick="playClickSFX(); switchScreen('screen-lvl2');" class="btn-hitman group rounded w-full">
+                    <div class="flex flex-col text-left">
                         <span class="font-code text-[9px] text-slate-400 uppercase tracking-widest">MISSION #02 • CAT HAVEN</span>
                         <span class="text-xs sm:text-sm font-extrabold tracking-wide text-white group-hover:text-red-100">
                             Level 2 - Healthy Cat Catch
                         </span>
                     </div>
                     <i class="fa-solid fa-chevron-right text-slate-500 text-xs transition-transform group-hover:translate-x-1 group-hover:text-red-500"></i>
-                </a>
+                </button>
 
-                <!-- LEVEL 3 -->
-                <a href="https://smassrgb.github.io/Game-pemakanan-lvl-3/" onclick="playClickSFX()" class="btn-hitman group rounded">
-                    <div class="flex flex-col">
+                <button onclick="playClickSFX(); switchScreen('screen-lvl3');" class="btn-hitman group rounded w-full">
+                    <div class="flex flex-col text-left">
                         <span class="font-code text-[9px] text-slate-400 uppercase tracking-widest">MISSION #03 • NUTRITION LAB</span>
                         <span class="text-xs sm:text-sm font-extrabold tracking-wide text-white group-hover:text-red-100">
                             Level 3 - Balanced Plate Builder
                         </span>
                     </div>
                     <i class="fa-solid fa-chevron-right text-slate-500 text-xs transition-transform group-hover:translate-x-1 group-hover:text-red-500"></i>
-                </a>
+                </button>
             </div>
         </div>
 
-        <!-- FOOTER -->
         <div class="border-t border-white/10 mt-6 pt-3 flex justify-between items-center text-[9px] font-code text-slate-500">
             <div>&copy; 2026 ICA SYSTEM</div>
             <div class="flex items-center gap-1.5 text-red-500">
@@ -225,7 +218,95 @@
         </div>
     </div>
 
-    <!-- 3. MODAL SETTINGS (TETAPAN) -->
+
+    <!-- ==================== 2. SKRIN LEVEL 1 ==================== -->
+    <div id="screen-lvl1" class="z-10 hidden fixed inset-0 bg-slate-950 flex flex-col justify-between p-4 sm:p-6">
+        <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-lg border border-slate-800">
+            <span class="font-code text-xs font-bold text-red-500 uppercase tracking-widest">
+                <i class="fa-solid fa-crosshairs mr-2"></i> LEVEL 1: SORTING 3D
+            </span>
+            <button onclick="playClickSFX(); switchScreen('screen-main-menu');" class="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded font-code">
+                <i class="fa-solid fa-house mr-1"></i> MENU
+            </button>
+        </div>
+
+        <!-- AREA SKRIN PERMAINAN LEVEL 1 -->
+        <div class="flex-1 my-4 bg-slate-900/50 border border-slate-800 rounded-lg flex flex-col items-center justify-center p-6 text-center">
+            <i class="fa-solid fa-box-open text-5xl text-red-500 mb-3 animate-bounce"></i>
+            <h2 class="text-xl font-bold font-hitman-title">GAME LEVEL 1</h2>
+            <p class="text-xs text-slate-400 max-w-sm mt-2 font-code">Selesaikan tugasan mengasingkan makanan sihat dan tidak sihat di sini!</p>
+        </div>
+
+        <!-- BUTANG NEXT LEVEL (Lvl 1 -> Lvl 2) -->
+        <div class="flex justify-end">
+            <button onclick="playClickSFX(); switchScreen('screen-lvl2');" 
+                    class="flex items-center gap-2 bg-red-600 hover:bg-red-700 active:scale-95 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-red-600/40 border border-red-400 font-code text-xs uppercase tracking-wider">
+                <span>SELESAI & NEXT TO LEVEL 2</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <!-- ==================== 3. SKRIN LEVEL 2 ==================== -->
+    <div id="screen-lvl2" class="z-10 hidden fixed inset-0 bg-slate-950 flex flex-col justify-between p-4 sm:p-6">
+        <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-lg border border-slate-800">
+            <span class="font-code text-xs font-bold text-red-500 uppercase tracking-widest">
+                <i class="fa-solid fa-crosshairs mr-2"></i> LEVEL 2: HEALTHY CAT CATCH
+            </span>
+            <button onclick="playClickSFX(); switchScreen('screen-main-menu');" class="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded font-code">
+                <i class="fa-solid fa-house mr-1"></i> MENU
+            </button>
+        </div>
+
+        <!-- AREA SKRIN PERMAINAN LEVEL 2 -->
+        <div class="flex-1 my-4 bg-slate-900/50 border border-slate-800 rounded-lg flex flex-col items-center justify-center p-6 text-center">
+            <i class="fa-solid fa-cat text-5xl text-red-500 mb-3 animate-pulse"></i>
+            <h2 class="text-xl font-bold font-hitman-title">GAME LEVEL 2</h2>
+            <p class="text-xs text-slate-400 max-w-sm mt-2 font-code">Bantu kucing menangkap makanan berkhasiat sahaja!</p>
+        </div>
+
+        <!-- BUTANG NEXT LEVEL (Lvl 2 -> Lvl 3) -->
+        <div class="flex justify-end">
+            <button onclick="playClickSFX(); switchScreen('screen-lvl3');" 
+                    class="flex items-center gap-2 bg-red-600 hover:bg-red-700 active:scale-95 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-red-600/40 border border-red-400 font-code text-xs uppercase tracking-wider">
+                <span>SELESAI & NEXT TO LEVEL 3</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <!-- ==================== 4. SKRIN LEVEL 3 ==================== -->
+    <div id="screen-lvl3" class="z-10 hidden fixed inset-0 bg-slate-950 flex flex-col justify-between p-4 sm:p-6">
+        <div class="flex justify-between items-center bg-slate-900/90 p-4 rounded-lg border border-slate-800">
+            <span class="font-code text-xs font-bold text-red-500 uppercase tracking-widest">
+                <i class="fa-solid fa-crosshairs mr-2"></i> LEVEL 3: BALANCED PLATE BUILDER
+            </span>
+            <button onclick="playClickSFX(); switchScreen('screen-main-menu');" class="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded font-code">
+                <i class="fa-solid fa-house mr-1"></i> MENU
+            </button>
+        </div>
+
+        <!-- AREA SKRIN PERMAINAN LEVEL 3 -->
+        <div class="flex-1 my-4 bg-slate-900/50 border border-slate-800 rounded-lg flex flex-col items-center justify-center p-6 text-center">
+            <i class="fa-solid fa-utensils text-5xl text-emerald-500 mb-3"></i>
+            <h2 class="text-xl font-bold font-hitman-title">GAME LEVEL 3</h2>
+            <p class="text-xs text-slate-400 max-w-sm mt-2 font-code">Bina pinggan sihat seimbang mengikut Pinggan Sihat Malaysia!</p>
+        </div>
+
+        <!-- BUTANG TAMAT (Lvl 3 -> MENU UTAMA) -->
+        <div class="flex justify-end">
+            <button onclick="playClickSFX(); switchScreen('screen-main-menu');" 
+                    class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold py-3 px-6 rounded-lg shadow-lg shadow-emerald-600/40 border border-emerald-400 font-code text-xs uppercase tracking-wider">
+                <span>TAMAT & KEMBALI KE MENU</span>
+                <i class="fa-solid fa-house"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <!-- MODAL SETTINGS -->
     <div id="modal-settings" class="fixed inset-0 z-40 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="ica-panel w-full max-w-sm rounded-lg p-6 border border-slate-700">
             <div class="flex justify-between items-center border-b border-white/10 pb-3 mb-4">
@@ -236,7 +317,6 @@
             </div>
 
             <div class="space-y-4 font-code text-xs">
-                <!-- AUDIO VOLUME -->
                 <div>
                     <div class="flex justify-between text-slate-300 mb-1">
                         <span>AUDIO VOLUME</span>
@@ -246,27 +326,6 @@
                            oninput="updateVolume(this.value)"
                            class="w-full accent-red-600 cursor-pointer">
                 </div>
-
-                <!-- SENSITIVITY -->
-                <div>
-                    <div class="flex justify-between text-slate-300 mb-1">
-                        <span>SENSITIVITY</span>
-                        <span id="label-sensitivity" class="text-red-500 font-bold">1.0x</span>
-                    </div>
-                    <input id="slider-sensitivity" type="range" min="0.5" max="2.0" step="0.1" value="1.0"
-                           oninput="updateSensitivity(this.value)"
-                           class="w-full accent-red-600 cursor-pointer">
-                </div>
-
-                <!-- GRAPHIC RESOLUTION -->
-                <div>
-                    <span class="text-slate-300 block mb-1">RESOLUTION / QUALITY</span>
-                    <div class="grid grid-cols-3 gap-2 text-[10px]">
-                        <button id="btn-reso-low" onclick="playClickSFX(); updateResolution('low');" class="py-2 rounded border border-slate-700 bg-slate-900 text-slate-300 hover:border-red-500">LOW</button>
-                        <button id="btn-reso-med" onclick="playClickSFX(); updateResolution('med');" class="py-2 rounded border border-red-600 bg-red-950/80 text-white font-bold">MEDIUM</button>
-                        <button id="btn-reso-high" onclick="playClickSFX(); updateResolution('high');" class="py-2 rounded border border-slate-700 bg-slate-900 text-slate-300 hover:border-red-500">HIGH</button>
-                    </div>
-                </div>
             </div>
 
             <button onclick="playClickSFX(); toggleSettingsModal(false);" class="w-full mt-6 bg-slate-800 hover:bg-slate-700 text-white font-code text-xs py-2.5 rounded border border-slate-600 uppercase tracking-widest">
@@ -275,7 +334,7 @@
         </div>
     </div>
 
-    <!-- AUDIO PLAYER -->
+    <!-- AUDIO BGM -->
     <audio id="bgm-hitman" loop preload="auto">
         <source src="https://raw.githubusercontent.com/smassrgb/Game-Pemakanan-Seimbangg/main/HITMAN%E2%84%A2%20-%20Main%20Theme%20%5B3nERcHvQFrg%5D.mp3" type="audio/mpeg">
     </audio>
@@ -284,15 +343,21 @@
         const bgm = document.getElementById('bgm-hitman');
         let audioCtx = null;
 
-        // Sound Effect Taktikal / Click (Guna Web Audio API)
+        // BUKATUKAR SKRIN (Single Page Navigation)
+        function switchScreen(screenId) {
+            const screens = ['screen-main-menu', 'screen-lvl1', 'screen-lvl2', 'screen-lvl3'];
+            screens.forEach(s => {
+                const el = document.getElementById(s);
+                if (s === screenId) el.classList.remove('hidden');
+                else el.classList.add('hidden');
+            });
+        }
+
+        // SFX BUNYI CLICK
         function playClickSFX() {
             try {
-                if (!audioCtx) {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                }
-                if (audioCtx.state === 'suspended') {
-                    audioCtx.resume();
-                }
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
                 
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
@@ -309,12 +374,9 @@
                 
                 osc.start();
                 osc.stop(audioCtx.currentTime + 0.05);
-            } catch (e) {
-                console.log("Audio SFX Error:", e);
-            }
+            } catch (e) {}
         }
 
-        // Load Settings & Save File
         window.addEventListener('DOMContentLoaded', () => {
             const savedName = localStorage.getItem('ica_student_name') || '';
             document.getElementById('input-student-name').value = savedName;
@@ -326,7 +388,7 @@
 
         function startApp() {
             document.getElementById('landscape-modal').classList.add('hidden');
-            bgm.play().catch(e => console.log("Audio autoplay blocked:", e));
+            bgm.play().catch(e => console.log("Audio blocked:", e));
         }
 
         function saveStudentName(name) {
@@ -343,23 +405,6 @@
             bgm.volume = parseFloat(val);
             document.getElementById('label-volume').innerText = `${Math.round(val * 100)}%`;
             localStorage.setItem('ica_volume', val);
-        }
-
-        function updateSensitivity(val) {
-            document.getElementById('label-sensitivity').innerText = `${parseFloat(val).toFixed(1)}x`;
-            localStorage.setItem('ica_sensitivity', val);
-        }
-
-        function updateResolution(res) {
-            ['low', 'med', 'high'].forEach(r => {
-                const btn = document.getElementById(`btn-reso-${r}`);
-                if (r === res) {
-                    btn.className = "py-2 rounded border border-red-600 bg-red-950/80 text-white font-bold";
-                } else {
-                    btn.className = "py-2 rounded border border-slate-700 bg-slate-900 text-slate-300 hover:border-red-500";
-                }
-            });
-            localStorage.setItem('ica_resolution', res);
         }
     </script>
 </body>
